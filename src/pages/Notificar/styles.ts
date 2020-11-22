@@ -85,6 +85,18 @@ export const PictureIconContainer = styled.View`
   border-radius: 16px;
 `;
 
+export const VideoIconContainer = styled.View`
+  position: absolute;
+  top: 135px;
+  right: 32px;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #0c3545;
+  border-radius: 16px;
+`;
+
 export const ButtonContainer = styled.View`
   margin-top: 25px;
   align-items: center;

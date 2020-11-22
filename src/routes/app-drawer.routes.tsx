@@ -6,6 +6,7 @@ import { useWindowDimensions } from 'react-native';
 import DrawerMenuContent from '../components/DrawerMenuContent';
 import ListarNotificacoes from '../pages/ListarNotificacoes';
 import Dashboard from '../pages/Dashboard';
+import Login from '../pages/Login';
 import Sucesso from '../pages/Sucesso';
 import AppStackRoutes from './app-stack.routes';
 
@@ -26,6 +27,11 @@ const DrawerRoutes: React.FC = () => {
       }}
       drawerType={dimensions.width >= 768 ? 'permanent' : 'front'}
     >
+      <App.Screen
+        options={{ headerShown: false }}
+        name="Login"
+        component={Login}
+      />
       <App.Screen
         options={{ headerShown: false }}
         name="Dashboard"
