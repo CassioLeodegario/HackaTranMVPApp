@@ -19,14 +19,6 @@ const DrawerMenuContent: React.FC = (props: any) => {
           <UserIdText>CPF: 078.996.585-15</UserIdText>
         </UsertextContainer>
       </Header>
-      <DrawerContentScrollView>
-        <DrawerItem
-          label="Atendimento Online"
-          onPress={() => {
-            props.navigation.navigate('Sucesso');
-          }}
-        />
-      </DrawerContentScrollView>
     </Container>
   );
 };

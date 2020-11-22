@@ -7,6 +7,41 @@ export const Container = styled.View`
   padding: 0 30px ${Platform.OS === 'ios' ? 40 : 80}px;
 `;
 
+export const ModalContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+`;
+
+export const ModalButtonsContainer = styled.View`
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  max-width: 250px;
+`;
+
+export const ModalButton = styled.TouchableOpacity`
+  height: 52px;
+  background: #0c3270;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  margin-top: 8px;
+
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalButtonText = styled.Text`
+  font-size: 12px;
+  color: #fff;
+  font-family: 'RobotoSlab-Medium';
+`;
+
 export const Title = styled.Text`
   font-size: 24px;
   color: #0c3270;

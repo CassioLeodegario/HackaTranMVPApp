@@ -1,17 +1,19 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import {
   View,
   KeyboardAvoidingView,
   ScrollView,
   TextInput,
   Alert,
+  Modal,
+  Text,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Geolocation from '@react-native-community/geolocation';
 import ImagePicker from 'react-native-image-picker';
 
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
-import * as Yup from 'yup';
 import Icon from 'react-native-vector-icons/Feather';
 import Input from '../../components/Input';
 import carPng from '../../assets/car.png';
@@ -24,49 +26,65 @@ import {
   CarImage,
   PictureIconContainer,
   ButtonContainer,
-  BackToDashboard,
-  BackToDashboardText,
+  ModalContainer,
+  ModalButtonsContainer,
+  ModalButton,
+  ModalButtonText,
 } from './styles';
+
+import api from '../../services/api';
+
 import Button from '../../components/Button';
 
-interface SignUpFormData {
+interface NotificacaoFormData {
   placa: string;
   tipoInfracao: string;
-  breveDescricao: string;
-  carPicture: string;
+  descricao: string;
+  caminhoArquivo: string;
+  latitude: string;
+  longitude: string;
 }
 
 const Notificar: React.FC = () => {
   const [carPicture, setCarPicture] = useState<any>(null);
+  const [locale, setLocale] = useState({ latitude: '', longitude: '' });
   const [tempImg, setTempImg] = useState(carPng);
+  const [showModal, setShowModal] = useState(false);
   const placaInputRef = useRef<TextInput>(null);
   const tipoInfracaoInputRef = useRef<TextInput>(null);
   const breveDescricaoInputRef = useRef<TextInput>(null);
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
+  useEffect(() => {
+    Geolocation.getCurrentPosition(info => {
+      info;
+      setLocale({
+        latitude: info?.coords?.latitude?.toString(),
+        longitude: info?.coords?.longitude?.toString(),
+      });
+    });
+  }, []);
+
   const handleSignUp = useCallback(
-    async (data: SignUpFormData) => {
-      navigation.navigate('Sucesso');
-      return;
+    async (data: NotificacaoFormData) => {
+      data.latitude = locale.latitude;
+      data.longitude = locale.longitude;
       try {
-        formRef.current?.setErrors({});
-        const schema = Yup.object().shape({
-          placa: Yup.string().required('Nome obrigatório'),
-          tipoInfracao: Yup.string().required('Cpf obrigatório'),
-          breveDescricao: Yup.string().required('Celular obrigatório'),
-        });
+        data.caminhoArquivo = carPicture;
+        await api
+          .post('/infracao', data)
+          .then(res => {
+            console.log('ok');
+          })
+          .catch(error => console.log(error));
 
-        await schema.validate(data, {
-          abortEarly: false,
-        });
-
-        data.carPicture = carPicture;
+        navigation.navigate('Sucesso');
       } catch (err) {
         Alert.alert('Erro na criação', 'Ocorreu um erro ao enviar infração');
       }
     },
-    [carPicture],
+    [carPicture, locale, navigation],
   );
 
   const handleUpdateAvatar = useCallback(() => {
@@ -83,7 +101,6 @@ const Notificar: React.FC = () => {
         }
 
         if (response.error) {
-          console.log(response.error);
           Alert.alert('Erro ao atualizar seu avatar.');
           return;
         }
@@ -95,6 +112,30 @@ const Notificar: React.FC = () => {
 
   return (
     <>
+      <Modal animationType="slide" transparent visible={showModal}>
+        <ModalContainer>
+          <SubTitle>Você confirma a veracidade dos fatos informados?</SubTitle>
+          <ModalButtonsContainer>
+            <ModalButton>
+              <ModalButtonText
+                onPress={() => {
+                  formRef.current?.submitForm();
+                }}
+              >
+                Confirmar
+              </ModalButtonText>
+            </ModalButton>
+            <ModalButton
+              onPress={() => {
+                setShowModal(false);
+              }}
+            >
+              <ModalButtonText>Cancelar</ModalButtonText>
+            </ModalButton>
+          </ModalButtonsContainer>
+        </ModalContainer>
+      </Modal>
+
       <KeyboardAvoidingView style={{ flex: 1 }} enabled>
         <ScrollView keyboardShouldPersistTaps="handled">
           <Container>
@@ -144,7 +185,7 @@ const Notificar: React.FC = () => {
                 autoCorrect={false}
                 autoCapitalize="none"
                 ref={breveDescricaoInputRef}
-                name="breveDescricao"
+                name="descricao"
                 placeholder="Insira uma breve descrição da infração"
                 returnKeyType="send"
                 onSubmitEditing={() => {
@@ -153,9 +194,7 @@ const Notificar: React.FC = () => {
               />
 
               <ButtonContainer>
-                <Button onPress={() => formRef.current?.submitForm()}>
-                  Cadastrar
-                </Button>
+                <Button onPress={() => setShowModal(true)}>Cadastrar</Button>
               </ButtonContainer>
             </Form>
           </Container>
