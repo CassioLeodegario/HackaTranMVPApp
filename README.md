@@ -68,4 +68,3 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [TypeScript](https://www.typescriptlang.org/)
 - [JAVA](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html)
 - [Spring-Boot](https://spring.io/projects/spring-boot)
-- [ASP.net](https://www.microsoft.com/)
