@@ -1,67 +1,72 @@
 <h1 align="center">#euFiscalizo</h1>
 
 <h1 align="center">
-  <img alt="NextLevelWeek" width="300" title="#NextLevelWeek" src="https://i.ibb.co/PjVgwBw/Whats-App-Image-2020-11-21-at-22-51-31.jpg" />
+  <img alt="EUFiscalizo" width="300" title="#EUFiscalizo" src="https://i.ibb.co/PjVgwBw/Whats-App-Image-2020-11-21-at-22-51-31.jpg" />
 </h1>
 
-<p align="center">Projeto desenvolvido durante o evento HackaTRAN 2020 promovido pelo DENATRAN com o tema: "Educação no trânsito. Perceba os riscos proteja a vida!"</p>
+<p align="center">This project was made during the "HackaTRAN" 2020 a hackaton promoted by DENATRAN the brazilian transist regulation agency with the theme: "Traffic education. Realize the risks protect life!"</p>
 
 
-### Pré-requisitos
+<p align="center"><b>Our team ended up in 4th place over of 40 other teams!</b></p>
 
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+<p align="center">The goal of the project was for people spot traffic infractions and report, but all the infractions reported by the app will not become a fine for the infractor it are going to be used just for raise awareness</p>
+
+
+### Prerequisites
+
+Before starting you are going to need the following tools:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [JDK](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html), 
 [Gradle](https://gradle.org/) . 
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+On top of that is good to have an editor for working with the code like [VSCode](https://code.visualstudio.com/)
 
-### 🎲 Rodando o Back End (servidor)
+### 🎲 Running the Back End (server)
 
 ```bash
-# Clone este repositório
+# Clone the repository
 $ git clone <https://github.com/CassioLeodegario/HackaTRANMVPApp.git>
 
-# Acesse a pasta do projeto no terminal/cmd
+# access the project folder via terminal/cmd
 $ cd HackaTRANMVPApp
 
-# Vá para a pasta server
+# go to the "server" folder
 $ cd server
 
-# Instale as dependências
+# Install all the dependencies
 $ gradle clean build
 
-# Acesse a pasta de ilbs
+# Access the lib folder
 $ /build/libs
 
-# Execute a aplicação com um  prompt de comando
+# Run the application
 $ java -jar eu-fiscalizo-api-0.0.1-SNAPSHOT.jar
 
-# O servidor inciará na porta:8090 - acesse <http://localhost:8090/api>
+# The server will start on the port:8090 - <http://localhost:8090/api>
 ```
 
-### 🎲 Rodando o APP
+### 🎲 Running the app
 
 ```bash
-# Clone este repositório
+# Clone the repository
 $ git clone <https://github.com/CassioLeodegario/HackaTRANMVPApp.git>
 
-# Acesse a pasta do projeto no terminal/cmd
+# Access the project folder via terminal/cmd
 $ cd HackaTRANMVPApp
 
-# Vá para a pasta app
+# Go to the "app" folder
 $ cd app
 
-# Instale as dependências
+# Install all dependencies
 $ npm install
 
-# Execute a aplicação com o emulador android/mac
+# Run the app on the android/ios emulator
 $ npx react-native run-android
 
-# O emulador iniciará com a aplicação
+# The emulator will start the aplication
 ```
 
-### 🛠 Tecnologias
+### 🛠 Tecnologies
 
-As seguintes ferramentas foram usadas na construção do projeto:
+The following tools were used in the project:
 
 - [Node.js](https://nodejs.org/en/)
 - [React Native](https://reactnative.dev/)
